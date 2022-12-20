@@ -22,14 +22,25 @@ export const store = configureStore({
 //____________________________________________________________________________________________________________________________________________
 
 
-// Рефакторинг на createSlice
-// Можна використати функцію configureStore з @reduxjs/toolkit, щоб створити store, передавши reducer і middleware: [thunk]
+// Мігрування на createSlice
+// import { createSlice } from '@reduxjs/toolkit';
+// import reducer from '../features/counter/counterSlice'
+// import thunk from 'redux-thunk';
+// import { configureStore } from '@reduxjs/toolkit';
+// import { increment, decrement } from '../features/counter/counterSlice';
 
-// import { configureStore } from "@reduxjs/toolkit";
-// import { counterReducer } from "./reducers/counterReducer";
-// import thunk from "redux-thunk";
-
-// export const store = configureStore({
-//     reducer: counterReducer,
-//     middleware: [thunk],
+// const counterSlice = createSlice({
+//     name: 'counter',
+//     initialState: 0,
+//     reducers: {
+//         increment: state => state + 1,
+//         decrement: state => state - 1
+//     }
 // });
+
+// const actions = counterSlice;
+// export const store = configureStore({
+//     reducer,
+//     middleware: [thunk]
+// });
+// store.dispatch(increment());
