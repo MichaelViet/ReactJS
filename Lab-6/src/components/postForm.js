@@ -1,14 +1,32 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import * as yup from "yup";
 
+// Схема перевірки форми за допомогою yup
+const schema = yup.object().shape({
+    SenderCity: yup.string().required(),
+    RecipientCity: yup.string().required(),
+    Type: yup.string().required(),
+    Quantity: yup.number().required(),
+    Cost: yup.number().required(),
+    Weight: yup.number().required(),
+    Length: yup.number().required(),
+    Width: yup.number().required(),
+    Height: yup.number().required(),
+    Packaging: yup.boolean(),
+    NumberOfFloors: yup.number(),
+    Elevator: yup.boolean(),
+});
 
-// PostForm — функціональний компонент, який рендерить форму для створення нової форми
 const PostForm = () => {
-    const { register, handleSubmit } = useForm();
+    // Ініціалізація форми схемою перевірки
+    const { register, handleSubmit } = useForm({
+        validationSchema: schema,
+    });
     const [inputList, setInputList] = useState([]);
     const onSubmit = (data) => console.log(data);
-    const cities = ['Львів', 'Житомир', 'Дніпро', 'Миколаїв', 'Київ'];
-    // Input – функціональний компонент, який рендерить групу вхідних даних для введення кількості, вартості, ваги, довжини, ширини та висоти
+    const cities = ["Львів", "Житомир", "Дніпро", "Миколаїв", "Київ"];
+
     const Input = () => (
         <div>
             <div>
@@ -37,7 +55,6 @@ const PostForm = () => {
             </div>
         </div>
     );
-
     // Функція обробки кнопки "Додати місце"
     const onAddBtnClick = () => {
         //Коли функція викликається, вона об'єднує новий Input компонент в кінець inputList масиву за допомогою concat методу
@@ -46,13 +63,13 @@ const PostForm = () => {
 
     return (
         <React.Fragment>
-            <form onSubmit={handleSubmit(onSubmit)} >
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <section>
                     <label>Маршрут</label>
                     <div>
                         <label>Місто відправник </label>
                         <select {...register("Відправник", { required: true })}>
-                            {cities.map(city => (
+                            {cities.map((city) => (
                                 <option value={city}>{city}</option>
                             ))}
                         </select>
@@ -80,9 +97,7 @@ const PostForm = () => {
                             {['Кількість', 'Вартість', 'Вага', 'Довжина', 'Ширина', 'Висота'].map(label => (
                                 <div>
                                     <label>{label}</label>
-                                    <input type="number" {...register(label, { required: true }, {
-                                        validate: value => value.length > 0,
-                                    })} />
+                                    <input type="number" {...register(label, { required: true }, { validate: (value) => value.length > 0 })} />
                                 </div>
                             ))}
                             <br />
