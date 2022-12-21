@@ -68,13 +68,13 @@ const PostForm = () => {
                     <label>Маршрут</label>
                     <div>
                         <label>Місто відправник </label>
-                        <select {...register("Відправник", { required: true })}>
+                        <select {...register("SenderCity", { required: true })}>
                             {cities.map((city) => (
                                 <option value={city}>{city}</option>
                             ))}
                         </select>
                         <label>Місто отримувач </label>
-                        <select {...register("Отримувач", { required: true })}>
+                        <select {...register("RecipientCity", { required: true })}>
                             {cities.map(city => (
                                 <option value={city}>{city}</option>
                             ))}
@@ -84,7 +84,7 @@ const PostForm = () => {
                 <hr></hr>
                 <section>
                     <label>Вид відправлення</label>
-                    <select {...register("Вид відправлення", { required: true })}>
+                    <select {...register("Type", { required: true })}>
                         <option value="Вантажі">Вантажі</option>
                         <option value="Палети">Палети</option>
                     </select>
@@ -94,7 +94,7 @@ const PostForm = () => {
                     <div>
                         <label>Характеристика місць</label>
                         <div>
-                            {['Кількість', 'Вартість', 'Вага', 'Довжина', 'Ширина', 'Висота'].map(label => (
+                            {['Quantity', 'Cost', 'Weight', 'Length', 'Width', 'Height'].map(label => (
                                 <div>
                                     <label>{label}</label>
                                     <input type="number" {...register(label, { required: true }, { validate: (value) => value.length > 0 })} />
@@ -112,17 +112,17 @@ const PostForm = () => {
                 <section>
                     <label>Послуга "Пакування"</label>
                     <div>
-                        <input type="checkbox" {...register("Пакування")} />
+                        <input type="checkbox" {...register("Packaging")} />
                         <button className="button">Тарифи пакування</button>
                     </div>
                     <br />
                     <label>Послуга "Підйом на поверх"</label>
                     <div>
                         <label>Кількість поверхів</label>
-                        <input type="number" {...register("Кількість поверхів")} />
+                        <input type="number" {...register("NumberOfFloors")} />
                     </div>
                     <label>Ліфт</label>
-                    <input type="checkbox" {...register("Ліфт")} />
+                    <input type="checkbox" {...register("Elevator")} />
                     <div>
                         <button className='button'> Розрахувати </button>&nbsp;
                         <button type='reset' className='button'>Очистити</button>
